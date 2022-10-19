@@ -1,4 +1,4 @@
-#include "juego.h"
+#include "Juego.h"
 
 // using namespace JuegoBomberman;
 using namespace std;
@@ -6,5 +6,5 @@ using namespace std;
 void main () {
     //Application::EnableVisualStyles;
     //Application::Run(gcnew Juego());
-    
+
 }
