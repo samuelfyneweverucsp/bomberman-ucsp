@@ -38,7 +38,7 @@ class CEscenario {
 
                                 matriz [i][j]=0;
                             else //ZONAS DESTRUIBLES O NO 
-                                matriz [i][j]=rand()%2+2
+                                matriz [i][j]=rand()%2+2;
                         }
                     }
                 }

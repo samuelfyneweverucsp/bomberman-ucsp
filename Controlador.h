@@ -1,5 +1,5 @@
-#ifndef__CONTROLADOR_H__
-#define__CONTROLADOR_H__
+#ifndef __CONTROLADOR_H__
+#define __CONTROLADOR_H__
 #include "Escenario.h"//con el nombre con que lo hayan puesto
 
 class CControlador
@@ -7,8 +7,8 @@ class CControlador
 private:
     CEscenario*oEscenario;
 public:
-    Controlador(){
-        oEscenario=new CEscenario()
+    Controlador Controlador(){
+        oEscenario=new CEscenario();
     }
     ~Controlador(){}
     void dibujar(Graphics^g, bitmap^bmpBase, bitmap^bmpSolido, bitmap^bmpDestruible){
@@ -17,5 +17,5 @@ public:
     }
 };
 
-
+#endif
 
