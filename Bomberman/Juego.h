@@ -1,6 +1,6 @@
 #pragma once
 #include "Controlador.h"
-
+ 
 namespace Bomberman {
 
 	using namespace System;
@@ -14,7 +14,7 @@ namespace Bomberman {
 	/// Resumen de Juego
 	/// </summary>
 	public ref class Juego : public System::Windows::Forms::Form
-	{
+{
 	public:
 		CControlador *oControlador = new CControlador();
 		Bitmap^ bmpSolido = gcnew Bitmap("Imagenes\\bmpSolido.png");
@@ -22,15 +22,16 @@ namespace Bomberman {
 		Bitmap^ bmpSuelo = gcnew Bitmap("Imagenes\\bmpSuelo.png");
 		Juego(void)
 		{
+			bmpJugador->MakeTransparent(bmpJugador->GetPixel(0,0)); // quitarle el fondo para hacerlo transparente
 			InitializeComponent();
 			//
-			//TODO: agregar código de constructor aquí
+			//TODO: agregar cï¿½digo de constructor aquï¿½
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Limpiar los recursos que se estén usando.
+		/// Limpiar los recursos que se estï¿½n usando.
 		/// </summary>
 		~Juego()
 		{
@@ -45,14 +46,14 @@ namespace Bomberman {
 
 	private:
 		/// <summary>
-		/// Variable del diseñador necesaria.
+		/// Variable del diseï¿½ador necesaria.
 		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Método necesario para admitir el Diseñador. No se puede modificar
-		/// el contenido de este método con el editor de código.
+		/// Mï¿½todo necesario para admitir el Diseï¿½ador. No se puede modificar
+		/// el contenido de este mï¿½todo con el editor de cï¿½digo.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -81,7 +82,7 @@ namespace Bomberman {
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpDestruible);
+		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpDestruible, bmpJugador);
 		buffer->Render(g);
 		delete buffer, espacio, g;
 	}
@@ -89,5 +90,32 @@ namespace Bomberman {
 	private: System::Void Juego_Load(System::Object^ sender, System::EventArgs^ e) {
 		oControlador->CambiarNivel();
 	}
+	private: System::Void MantenerTecla(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+			case Keys::Up:
+				oControladora->getoJugador()->setDireccion(Direcciones::Arriba);
+				break;
+			case Keys::Down:
+				oControladora->getoJugador()->setDireccion(Direcciones::Abajo);
+				break;
+			case Keys::Left:
+				oControladora->getoJugador()->setDireccion(Direcciones::Izquierda);
+				break;
+			case Keys::Right:
+				oControladora->getoJugador()->setDireccion(Direcciones::Derecha);
+				break;
+			default:
+				break;
+		}
+	}
+
+	private: System:Void UltimaTeclaPresionada(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+			default:
+				oControladora->getoJugador()->setDireccion(Direcciones::Ninguna);
+				break;
+		}
+	}
+
 	};
 }
