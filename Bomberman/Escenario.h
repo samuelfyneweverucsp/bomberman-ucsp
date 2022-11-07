@@ -79,7 +79,9 @@ public:
         }
     }
 
-
+    int** getMatriz() {
+        return matriz;
+    }
 
 
 private:

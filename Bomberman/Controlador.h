@@ -23,8 +23,8 @@ public:
 	void dibujar(Graphics ^ g, Bitmap ^ bmpBase, Bitmap ^ bmpSolido, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador) {
 		oEscenario->PintarBase(g, bmpBase);
 		oEscenario->PintarMatriz(g, bmpSolido, bmpDestruible);
-		oJugador->moverJugador(g, bmpJugador);
-	}
+		oJugador->moverJugador(g, bmpJugador, oEscenario->getMatriz()); 
+	} 
 
 	CJugador* getoJugador () {
 		return oJugador;

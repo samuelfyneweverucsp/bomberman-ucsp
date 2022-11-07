@@ -3,13 +3,19 @@
 
 using namespace Sytem::Drawing;
 
-/* Fuente: https://www.youtube.com/watch?v=VReulZBhSuI&list=PLNACkYS5556GB2C72RRWurw0DkoTHod-P&index=3 */
+/* Fuente para establecer el jugador: 
+https://www.youtube.com/watch?v=VReulZBhSuI&list=PLNACkYS5556GB2C72RRWurw0DkoTHod-P&index=3 
+   Fuente para validar los muros y paredes: 
+https://www.youtube.com/watch?v=ewFiVTtnZSg&list=PLNACkYS5556GB2C72RRWurw0DkoTHod-P&index=4 
+   (es decir, prohibir que los jugadores caminaran encima de los muros/paredes)
+*/
 
-enum Direcciones{Arriba,Abajo,Izquierda,Derecha,Ninguna}; // Las direcciones a las cuáles se puede dirigir el jugador
+enum Direcciones{Arriba,Abajo,Izquierda,Derecha,Ninguna}; 
+// Las direcciones a las cuáles se puede dirigir el jugador
 // Para más información acerca del ENUM, véase aquí: https://learn.microsoft.com/es-es/cpp/cpp/enumerations-cpp?view=msvc-170
 // o acá (más fácil con ejemplos, pero en inglés): https://www.programiz.com/cpp-programming/enumeration
 
-class CJugador() {
+class CJugador {
 public: 
     CJugador(int x, int y) {
         // Inicializar la posición del jugador
@@ -34,7 +40,38 @@ public:
         this -> direccion = direccion;
     }
 
-    void dibujarJugador(Graphics^g, Bitmap^bmpJugador) {
+    void ValidarMovimiento(int **matriz) {
+        int X = 0;
+        int Y = 0;
+        for (int i = 0; i < filas; i++)
+        {
+            X = 0; // al empezar en una nueva fila, nos ubicamos en la primera columna
+            for (int j = 0; i < columnas; i++)
+            {
+                Rectangle c1 = Rectangle(X, Y, 50, 50) // el rectangulo del bloque actual
+                if(matriz[i][j] == 1 || matriz[i][j] == 3) {
+                    if(CDI.IntersectsWith(c1)) {dx = 0;} // si el jugador choca horizontalmente con un bloque, no debe poder seguir horizontalmente
+                    if(CAA.IntersectsWith(c1)) {dy = 0;} // si el jugador choca verticalmente con un bloque, no debe poder seguir vertialmente
+                }
+
+                X += 50; // cambiar de columna (mover hacia la derecha)
+            }
+            Y += 50; // cambiar de fila (mover hacia abajo)
+        }
+        
+    }
+
+    void dibujarJugador(Graphics^g, Bitmap^bmpJugador, int **matriz) {
+        Rectangle CDI = Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);  
+            // multiplicando por tres porque el jugador es más pequeño que los bloques
+        Rectangle CAA = Rectangle(x + 2 * 3, y + 15 * 3 + dy, (ancho - 4) * 3, (alto - 15) * 3);
+
+        g->DrawRectangle(Pens::Transparent, CDI); // originalmente Red
+        g->DrawRectangle(Pens::Transparent, CAA); // originalmente Orange
+        // para poder ver los Rectangles
+
+        ValidarMovimiento(matriz);
+
         Rectangle PorcionAUsar = Rectangle(indiceX*ancho, indiceY*alto, ancho, alto);
         Rectangle Aumento = Rectangle(x, y, ancho*3, alto*3);
         g->DrawImage(bmpJugador, Aumento, PorcionAUsar, GraphicsUnit::Pixel);
@@ -42,7 +79,7 @@ public:
         y += dy; // mover en el eje y
     }
 
-    void moverJugador(Graphics^g, Bitmap^bmpJugador) {
+    void moverJugador(Graphics^g, Bitmap^bmpJugador, int **matriz) {
         direccion == Arriba ? ancho = 17 : ancho = 18;
         dibujarJugador(g, bmpJugador);
         switch (direccion) {
@@ -113,19 +150,25 @@ public:
             default:
                 break;
         }
+        dibujarJugador(g, bmpJugador, matriz);
     }
 
 private:
-    int x;
-    int y;
-    int dx;
-    int dy;
-    int ancho;
-    int alto; 
-    int indiceX;
-    int indiceY;
+    int x; // posición
+    int y; // posición
+    int dx; // movimiento (velocidad)
+    int dy; // movimiento (velocidad)
+    int ancho; // anchura del jugador
+    int alto;  // altura del jugador
+    int indiceX; // índices para usar para la animación
+    int indiceY; // (qué imagen usar para el sprite)
+
     Direcciones direccion; // dirección actual
     Direcciones ultima; // en qué posición estaba antes
-}
+
+    Rectangle CDI; // derecha-izquierda
+    Rectangle CAA; // arriba-abajo
+
+};
 
 #endif
