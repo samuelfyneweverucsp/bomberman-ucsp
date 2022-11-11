@@ -1,0 +1,4 @@
+C:\Users\nxqui\source\repos\samuelfyneweverucsp\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.vcxproj.AssemblyReference.cache
+C:\Users\nxqui\source\repos\samuelfyneweverucsp\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\nxqui\source\repos\samuelfyneweverucsp\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.Juego.resources
+C:\Users\nxqui\source\repos\samuelfyneweverucsp\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.vcxproj.GenerateResource.cache

@@ -1,7 +1,7 @@
 #ifndef __JUGADOR_H__
 #define __JUGADOR_H__
 
-using namespace Sytem::Drawing;
+using namespace System::Drawing;
 
 /* Fuente para establecer el jugador: 
 https://www.youtube.com/watch?v=VReulZBhSuI&list=PLNACkYS5556GB2C72RRWurw0DkoTHod-P&index=3 
@@ -48,7 +48,7 @@ public:
             X = 0; // al empezar en una nueva fila, nos ubicamos en la primera columna
             for (int j = 0; i < columnas; i++)
             {
-                Rectangle c1 = Rectangle(X, Y, 50, 50) // el rectangulo del bloque actual
+                Rectangle c1 = Rectangle(X, Y, 50, 50); // el rectangulo del bloque actual
                 if(matriz[i][j] == 1 || matriz[i][j] == 3) {
                     if(CDI.IntersectsWith(c1)) {dx = 0;} // si el jugador choca horizontalmente con un bloque, no debe poder seguir horizontalmente
                     if(CAA.IntersectsWith(c1)) {dy = 0;} // si el jugador choca verticalmente con un bloque, no debe poder seguir vertialmente
@@ -61,7 +61,7 @@ public:
         
     }
 
-    void dibujarJugador(Graphics^g, Bitmap^bmpJugador, int **matriz) {
+    void dibujarJugador(Graphics^g, Bitmap^bmpJugador) {
         Rectangle CDI = Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);  
             // multiplicando por tres porque el jugador es más pequeño que los bloques
         Rectangle CAA = Rectangle(x + 2 * 3, y + 15 * 3 + dy, (ancho - 4) * 3, (alto - 15) * 3);
@@ -70,7 +70,7 @@ public:
         g->DrawRectangle(Pens::Transparent, CAA); // originalmente Orange
         // para poder ver los Rectangles
 
-        ValidarMovimiento(matriz);
+        //ValidarMovimiento(matriz);
 
         Rectangle PorcionAUsar = Rectangle(indiceX*ancho, indiceY*alto, ancho, alto);
         Rectangle Aumento = Rectangle(x, y, ancho*3, alto*3);
@@ -81,12 +81,12 @@ public:
 
     void moverJugador(Graphics^g, Bitmap^bmpJugador, int **matriz) {
         direccion == Arriba ? ancho = 17 : ancho = 18;
-        dibujarJugador(g, bmpJugador);
+        dibujarJugador(g, bmpJugador);           
         switch (direccion) {
             case Direcciones::Arriba:
                 indiceY = 0; // las imagenes de caminar hacía abajo están en el indiceY 0
-                indiceX = 1; // para empezar el ciclo de caminar hacía arriba
-                if(indiceX>=1 & indiceX < 3)
+               
+                if(indiceX>=1 && indiceX < 3)
                     indiceX++; // para avanzar en el ciclo de caminar hacia arriba
                 else
                     indiceX = 1; // para mantener el ciclo de caminar hacia arriba
@@ -96,36 +96,36 @@ public:
                 break;
             case Direcciones::Abajo:
                 indiceX = 0; // las imagenes de caminar hacía abajo están en el indiceX 0
-                indiceY = 1; // para empezar el ciclo de caminar hacia abajo
-                if(indiceY >= 1 & indiceY < 3)
+                
+                if(indiceY >= 1 && indiceY < 3)
                     indiceY++; // para avanzar en el ciclo de caminar hacia abajo
                 else
                     indiceY = 1; // para mantener el ciclo de caminar hacia arriba
-                dx = 0; // todavía no moviéndose en el eje x
-                dy = 10; // moviéndose hacía abajo; su coordinado se está aumentando
-                ultima = Abajo;
-                break;
+                    dx = 0; // todavía no moviéndose en el eje x
+                    dy = 10; // moviéndose hacía abajo; su coordinado se está aumentando
+                    ultima = Abajo;
+                    break;
             case Direcciones::Izquierda:
                 indiceY = 3; // las imagenes de caminar hacía la izquierda están en el indiceY 3
-                indiceX = 1; // para empezar el ciclo de caminar hacía la izquierda
-                if(indiceX >= 1 & indiceX < 3)
+                
+                if(indiceX >= 1 && indiceX < 3)
                     indiceX++; // para avanzar en el ciclo de caminar hacia la izquierda
                 else
                     indiceX = 1; // para mantener el ciclo de caminar hacia la izquierda
-                dx = -10; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
-                dy = 0; // no moviéndose en el eje y
-                ultima = Izquierda;
-                break;
+                    dx = -10; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
+                    dy = 0; // no moviéndose en el eje y
+                    ultima = Izquierda;
+                    break;
             case Direcciones::Derecha:
                 indiceY = 1; // las imagenes de caminar hacía la izquierda están en el indiceY 1
-                indiceX = 1; // para empezar el ciclo de caminar hacía la derecha
-                if(indiceY >= 1 & indiceY < 3)
-                    indiceY++; // para avanzar en el ciclo de caminar hacia abajo
+                
+                if(indiceX >= 1 && indiceX < 3)
+                    indiceX++; // para avanzar en el ciclo de caminar hacia abajo
                 else
-                    indiceY = 1; // para mantener el ciclo de caminar hacia arriba
-                dx = -10; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
+                    indiceX = 1; // para mantener el ciclo de caminar hacia arriba
+                dx = 10; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
                 dy = 0; // no moviéndose en el eje y
-                ultima = Izquierda;
+                ultima = Derecha;
                 break;
             case Direcciones::Ninguna:
                 dx = 0;
@@ -150,7 +150,7 @@ public:
             default:
                 break;
         }
-        dibujarJugador(g, bmpJugador, matriz);
+        dibujarJugador(g, bmpJugador);
     }
 
 private:
