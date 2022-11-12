@@ -15,15 +15,20 @@ namespace Bomberman {
 	/// </summary>
 	public ref class Juego : public System::Windows::Forms::Form
 {
-	public:
+	private:
 		CControlador *oControlador = new CControlador();
 		Bitmap^ bmpSolido = gcnew Bitmap("Imagenes\\bmpSolido.png");
 		Bitmap^ bmpDestruible = gcnew Bitmap("Imagenes\\bmpDestruible.png");
 		Bitmap^ bmpSuelo = gcnew Bitmap("Imagenes\\bmpSuelo.png");
 		Bitmap^ bmpJugador = gcnew Bitmap("Imagenes\\Jugador.png");
+		Bitmap^ bmpBomba = gcnew Bitmap("Imagenes\\bomba.png");
+		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png")
+	public:
 		Juego(void)
 		{
 			bmpJugador->MakeTransparent(bmpJugador->GetPixel(0,0)); // quitarle el fondo para hacerlo transparente
+			bmpBomba->MakeTransparent(bmpBomba->GetPixel(0,0));
+			bmpExplosion->MakeTransparent(bmpExplosion->GetPixel(0,0));
 			InitializeComponent();
 			//
 			//TODO: agregar c�digo de constructor aqu�
@@ -53,8 +58,8 @@ namespace Bomberman {
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// M�todo necesario para admitir el Dise�ador. No se puede modificar
-		/// el contenido de este m�todo con el editor de c�digo.
+		/// Método necesario para admitir el Diseñador. No se puede modificar
+		/// el contenido de este método con el editor de código.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -85,7 +90,7 @@ namespace Bomberman {
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpDestruible, bmpJugador);
+		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador);
 		buffer->Render(g);
 		delete buffer, espacio, g;
 	}
@@ -115,6 +120,9 @@ namespace Bomberman {
 private: 
 	System::Void UltimaTeclaPresionada(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		switch (e->KeyCode) {
+		case Keys::Space:
+			oControladora->agregarBomba();
+			break;
 		default:
 			oControlador->getoJugador()->setDireccion(Direcciones::Ninguna);
 			break;

@@ -36,6 +36,9 @@ public:
     }
     ~CJugador() {}
 
+    int getX() {return x + 6 + dx;}
+    int getY() {return y + 45 + dy;}
+
     void setDireccion(Direcciones direccion) {
         this -> direccion = direccion;
     }
