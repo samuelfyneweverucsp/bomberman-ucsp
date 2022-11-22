@@ -1,3 +1,4 @@
+#include <iostream>
 #ifndef __JUGADOR_H__
 #define __JUGADOR_H__
 
@@ -32,12 +33,10 @@ public:
         // y ahora colocamos adonde se dirige
         direccion = Direcciones::Ninguna; 
         ultima = Direcciones::Abajo; // empieza dirigido hacía abajo
-
+        this->CAA=CAA;
+        this->CDI=CDI;
     }
     ~CJugador() {}
-
-    int getX() {return x + 6 + dx;}
-    int getY() {return y + 45 + dy;}
 
     void setDireccion(Direcciones direccion) {
         this -> direccion = direccion;
@@ -49,12 +48,12 @@ public:
         for (int i = 0; i < filas; i++)
         {
             X = 0; // al empezar en una nueva fila, nos ubicamos en la primera columna
-            for (int j = 0; i < columnas; i++)
+            for (int j = 0; j < columnas; j++)
             {
-                Rectangle c1 = Rectangle(X, Y, 50, 50); // el rectangulo del bloque actual
-                if(matriz[i][j] == 1 || matriz[i][j] == 3) {
-                    if(CDI.IntersectsWith(c1)) {dx = 0;} // si el jugador choca horizontalmente con un bloque, no debe poder seguir horizontalmente
-                    if(CAA.IntersectsWith(c1)) {dy = 0;} // si el jugador choca verticalmente con un bloque, no debe poder seguir vertialmente
+                 Rectangle c1 = Rectangle(X, Y, 50, 50); // el rectangulo del bloque actual
+                 if (matriz[i][j] == 1 || matriz[i][j] == 3) {
+                    if (CDI.IntersectsWith(c1))dx = 0;  // si el jugador choca horizontalmente con un bloque, no debe poder seguir horizontalmente
+                    if (CAA.IntersectsWith(c1))dy = 0;  // si el jugador choca verticalmente con un bloque, no debe poder seguir vertialmente
                 }
 
                 X += 50; // cambiar de columna (mover hacia la derecha)
@@ -64,16 +63,16 @@ public:
         
     }
 
-    void dibujarJugador(Graphics^g, Bitmap^bmpJugador) {
-        Rectangle CDI = Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);  
+    void dibujarJugador(Graphics^g, Bitmap^bmpJugador,int **matriz) {
+        CDI = Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);  
             // multiplicando por tres porque el jugador es más pequeño que los bloques
-        Rectangle CAA = Rectangle(x + 2 * 3, y + 15 * 3 + dy, (ancho - 4) * 3, (alto - 15) * 3);
+        CAA = Rectangle(x + 2 * 3, y + 15 * 3 + dy, (ancho - 4) * 3, (alto - 15) * 3);
 
-        g->DrawRectangle(Pens::Transparent, CDI); // originalmente Red
-        g->DrawRectangle(Pens::Transparent, CAA); // originalmente Orange
+        g->DrawRectangle(Pens::Red, CDI); // originalmente Red
+        g->DrawRectangle(Pens::Orange, CAA); // originalmente Orange
         // para poder ver los Rectangles
 
-        //ValidarMovimiento(matriz);
+        ValidarMovimiento(matriz);
 
         Rectangle PorcionAUsar = Rectangle(indiceX*ancho, indiceY*alto, ancho, alto);
         Rectangle Aumento = Rectangle(x, y, ancho*3, alto*3);
@@ -84,7 +83,7 @@ public:
 
     void moverJugador(Graphics^g, Bitmap^bmpJugador, int **matriz) {
         direccion == Arriba ? ancho = 17 : ancho = 18;
-        dibujarJugador(g, bmpJugador);           
+        dibujarJugador(g, bmpJugador,matriz);           
         switch (direccion) {
             case Direcciones::Arriba:
                 indiceY = 0; // las imagenes de caminar hacía abajo están en el indiceY 0
@@ -153,7 +152,7 @@ public:
             default:
                 break;
         }
-        dibujarJugador(g, bmpJugador);
+        dibujarJugador(g, bmpJugador,matriz);
     }
 
 private:
