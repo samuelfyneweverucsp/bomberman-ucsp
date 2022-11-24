@@ -36,6 +36,10 @@ public:
             }
         }
                            }
+    
+    vector<CBomba*> getarregloBombas() {
+        return arregloBombas;
+    }
 
 private:
     vector<CBomba*> arregloBombas;

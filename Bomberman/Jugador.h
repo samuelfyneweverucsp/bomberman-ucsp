@@ -9,6 +9,9 @@ https://www.youtube.com/watch?v=VReulZBhSuI&list=PLNACkYS5556GB2C72RRWurw0DkoTHo
    Fuente para validar los muros y paredes: 
 https://www.youtube.com/watch?v=ewFiVTtnZSg&list=PLNACkYS5556GB2C72RRWurw0DkoTHod-P&index=4 
    (es decir, prohibir que los jugadores caminaran encima de los muros/paredes)
+   Fuente para disminución de las vidas:
+https://www.youtube.com/watch?v=ytGeCR9s924&list=PLNACkYS5556GB2C72RRWurw0DkoTHod-P&index=8
+
 */
 
 enum Direcciones{Arriba,Abajo,Izquierda,Derecha,Ninguna}; 
@@ -38,6 +41,10 @@ public:
     }
     ~CJugador() {}
 
+    Rectangle retornarRectangulo() {
+        return Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);
+    }
+
     void setDireccion(Direcciones direccion) {
         this -> direccion = direccion;
     }
@@ -60,6 +67,24 @@ public:
             }
             Y += 50; // cambiar de fila (mover hacia abajo)
         }
+        
+    }
+
+    int getX() {return x;}
+    int getY() {return y;}
+
+    void disminuirvidas(int PuntaIzquierda, int PuntaDerecha, int CentroInicioY, int CentroFinalY, 
+                        int PuntaSuperior, int PuntaInferior, int CentroInicioX, int CentroFinalX) {
+                            if(getX() >= PuntaIzquierda && getX() <= PuntaDerecha && getY() >= CentroInicioY && getY() <= CentroFinalY) {
+                                x = 50;
+                                y = 50;
+                                vidas--;
+                            }
+                            if(getY() >= PuntaSuperior && getY() <= PuntaInferior && getX() >= CentroInicioX && getX() <= CentroFinalX) {
+                                x = 50;
+                                y = 50;
+                                vidas--;
+                            }
         
     }
 
@@ -164,6 +189,8 @@ private:
     int alto;  // altura del jugador
     int indiceX; // índices para usar para la animación
     int indiceY; // (qué imagen usar para el sprite)
+
+    int vidas;
 
     Direcciones direccion; // dirección actual
     Direcciones ultima; // en qué posición estaba antes

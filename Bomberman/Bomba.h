@@ -148,6 +148,9 @@ public:
         return estado;
     }
 
+    int getX() {return x;}
+    int getY() {return y;}
+
 private: // de la explosión de la bomba
     int indiceEX;
     int indiceEY;
