@@ -14,7 +14,7 @@ class CArrMejoras
 public:
 	CArrMejoras(){}
 	~CArrMejoras(){}
-	void crearMejora() {
+	void crearMejoras() {
 		srand(time(NULL));
 		tipo_de_mejora = rand() % 3 + 1;
 		CmejoraVida* nueva_mejoraV = new CmejoraVida();

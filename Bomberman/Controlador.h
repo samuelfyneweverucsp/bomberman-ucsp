@@ -4,7 +4,7 @@
 #include "Jugador.h"
 #include "ArrBombas.h"
 #include "ArrMejoras.h"
-// #include "ArrEnemigos.h"
+#include "ArrEnemigos.h"
 
 class CControlador
 {
@@ -12,13 +12,17 @@ private:
 	CEscenario* oEscenario;
 	CJugador* oJugador;
 	CArrBombas* oArrBombas;
+	CArrMejoras* oArrMejoras;
+	CArrEnemigos* oArrEnemigos;
+	int nivel = 1;
+
 public:
 	CControlador(){ // constructor
 		oEscenario = new CEscenario;
 		oJugador = new CJugador(50, 50); // declarar jugador e inicializar en la posicion (50; 50)
 		oArrBombas = new CArrBombas();
 		oArrMejoras = new CArrMejoras();
-
+		oArrEnemigos = new CArrEnemigos();
 		}
 	~CControlador(){} // destructor
 	
@@ -53,7 +57,7 @@ public:
 
 
 	void crear_enemigos_y_mejoras() {
-		// oArrEnemigos->crearEnemigos();
+		oArrEnemigos->crearEnemigos();
 		oArrMejoras->crearMejoras();
 	}
 
@@ -65,15 +69,25 @@ public:
 		oArrBombas->crear_una_bomba(oJugador->getX(), oJugador->getY());
 	}
 
-	void dibujar(Graphics ^ g, Bitmap ^ bmpBase, Bitmap ^ bmpSolido, Bitmap ^ bmpBomba, Bitmap ^ bmpExplosion, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador) {
+	void dibujar(Graphics ^ g, Bitmap ^ bmpBase, Bitmap ^ bmpSolido, Bitmap ^ bmpBomba, 
+				Bitmap ^ bmpExplosion, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador, Bitmap ^ bmpEnemigo) {
 		oEscenario->PintarBase(g, bmpBase);
 		oEscenario->PintarMatriz(g, bmpSolido, bmpDestruible);
 		oJugador->moverJugador(g, bmpJugador, oEscenario->getMatriz()); 
 		oArrBombas->dibujar_una_bomba(g, bmpBomba, bmpExplosion, oJugador->getX(), oJugador->getY(), oEscenario->getMatriz());
+		oArrEnemigos->dibujar(g, bmpEnemigo, oEscenario->getMatriz());
 	} 
 
 	CJugador* getoJugador () {
 		return oJugador;
+	}
+
+	CArrMejoras* getoArrMejoras() {
+		return oArrMejoras;
+	}
+
+	CArrEnemigos* getoArrEnemigos() {
+		return oArrEnemigos;
 	}
 };
 

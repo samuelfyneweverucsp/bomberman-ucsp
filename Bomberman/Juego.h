@@ -22,13 +22,15 @@ namespace Bomberman {
 		Bitmap^ bmpSuelo = gcnew Bitmap("Imagenes\\bmpSuelo.png");
 		Bitmap^ bmpJugador = gcnew Bitmap("Imagenes\\Jugador.png");
 		Bitmap^ bmpBomba = gcnew Bitmap("Imagenes\\bomba.png");
-		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png")
+		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png");
+		Bitmap^ bmpEnemigo = gcnew Bitmap("Imagenes\\bmpMejoras.png");
 	public:
 		Juego(void)
 		{
 			bmpJugador->MakeTransparent(bmpJugador->GetPixel(0,0)); // quitarle el fondo para hacerlo transparente
 			bmpBomba->MakeTransparent(bmpBomba->GetPixel(0,0));
 			bmpExplosion->MakeTransparent(bmpExplosion->GetPixel(0,0));
+			bmpEnemigo->MakeTransparent(bmpEnemigo->GetPixel(0,0));
 			InitializeComponent();
 			//
 			//TODO: agregar c�digo de constructor aqu�
@@ -47,10 +49,11 @@ namespace Bomberman {
 			}
 		}
 	private: System::Windows::Forms::Timer^ timer1;
-	protected:
-	private: System::ComponentModel::IContainer^ components;
+	// protected:
+	// private: 
+		System::ComponentModel::IContainer^ components;
 
-	private:
+	// private:
 		/// <summary>
 		/// Variable del dise�ador necesaria.
 		/// </summary>
@@ -90,7 +93,7 @@ namespace Bomberman {
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador);
+		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras, bmpEnemigo);
 		buffer->Render(g);
 		delete buffer, espacio, g;
 	}
@@ -117,17 +120,34 @@ namespace Bomberman {
 		}
 	}
 
-private: 
-	System::Void UltimaTeclaPresionada(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-		switch (e->KeyCode) {
-		case Keys::Space:
-			oControladora->agregarBomba();
-			break;
-		default:
-			oControlador->getoJugador()->setDireccion(Direcciones::Ninguna);
-			break;
+	private: 
+		System::Void UltimaTeclaPresionada(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+			switch (e->KeyCode) {
+			case Keys::Space:
+				oControladora->agregarBomba();
+				break;
+			default:
+				oControlador->getoJugador()->setDireccion(Direcciones::Ninguna);
+				break;
+			}
+		}
+
+	private: System::Void trCarga_Tick(System::Object^ sender, System::EventArgs^ e) {
+		lblNivel->Text = "Nivel: " + oControlador->getNivel();
+		pbCarga->Increment(10);
+		if(trCarga->Interval == 2500 && oControlador->getoArrEnemigos()->getarregloEnemigos().size() < oControlador->getNivel()) { 
+			oControlador->crear_enemigos_y_mejoras();
+		}
+		else {
+			trCarga->Enabled = false;
+			timer1->Enabled = true;
+
+			lblNivel->Visible = false;
+			lblNivel->Enabled = false;
+			pbCarga->Visible = false;
+			pbCarga->Enabled = false;
 		}
 	}
 
-	};
+};
 }
