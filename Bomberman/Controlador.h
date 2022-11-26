@@ -3,8 +3,8 @@
 #include "Escenario.h"//con el nombre con que lo hayan puesto
 #include "Jugador.h"
 #include "ArrBombas.h"
-#include "ArrMejoras.h"
-#include "ArrEnemigos.h"
+//#include "ArrMejoras.h"
+//#include "ArrEnemigos.h"
 
 class CControlador
 {
@@ -12,8 +12,8 @@ private:
 	CEscenario* oEscenario;
 	CJugador* oJugador;
 	CArrBombas* oArrBombas;
-	CArrMejoras* oArrMejoras;
-	CArrEnemigos* oArrEnemigos;
+	//CArrMejoras* oArrMejoras;
+	//CArrEnemigos* oArrEnemigos;
 	int nivel = 1;
 
 public:
@@ -21,8 +21,8 @@ public:
 		oEscenario = new CEscenario;
 		oJugador = new CJugador(50, 50); // declarar jugador e inicializar en la posicion (50; 50)
 		oArrBombas = new CArrBombas();
-		oArrMejoras = new CArrMejoras();
-		oArrEnemigos = new CArrEnemigos();
+		//oArrMejoras = new CArrMejoras();
+		//oArrEnemigos = new CArrEnemigos();
 		}
 	~CControlador(){} // destructor
 	
@@ -30,9 +30,9 @@ public:
 		oArrBombas->crear_una_bomba(oJugador->getX(), oJugador->getY());
 	}
 
-	void disminuir_Vidas_Por_Enemigo() {
+	//void disminuir_Vidas_Por_Enemigo() {
 
-	}
+	//}
 
 	void disminuir_Vidas_Por_Bomba() {
 		int PuntaIzquierda, PuntaDerecha, CentroInicioY, CentroFinalY, 
@@ -56,39 +56,36 @@ public:
 	}
 
 
-	void crear_enemigos_y_mejoras() {
+	/*void crear_enemigos_y_mejoras() {
 		oArrEnemigos->crearEnemigos();
 		oArrMejoras->crearMejoras();
 	}
-
+	*/
 	void CambiarNivel() {
 		oEscenario->generarMatriz();
 	}
 
-	void agregarBomba() {
-		oArrBombas->crear_una_bomba(oJugador->getX(), oJugador->getY());
-	}
-
 	void dibujar(Graphics ^ g, Bitmap ^ bmpBase, Bitmap ^ bmpSolido, Bitmap ^ bmpBomba, 
-				Bitmap ^ bmpExplosion, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador, Bitmap ^ bmpEnemigo) {
+				Bitmap ^ bmpExplosion, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador)//,Bitmap^ bmpMejoras)//, Bitmap ^ bmpEnemigo)
+	{
 		oEscenario->PintarBase(g, bmpBase);
 		oEscenario->PintarMatriz(g, bmpSolido, bmpDestruible);
 		oJugador->moverJugador(g, bmpJugador, oEscenario->getMatriz()); 
 		oArrBombas->dibujar_una_bomba(g, bmpBomba, bmpExplosion, oJugador->getX(), oJugador->getY(), oEscenario->getMatriz());
-		oArrEnemigos->dibujar(g, bmpEnemigo, oEscenario->getMatriz());
+		//oArrEnemigos->dibujar(g, bmpEnemigo, oEscenario->getMatriz());
 	} 
 
 	CJugador* getoJugador () {
 		return oJugador;
 	}
 
-	CArrMejoras* getoArrMejoras() {
+	/*CArrMejoras* getoArrMejoras() {
 		return oArrMejoras;
 	}
 
 	CArrEnemigos* getoArrEnemigos() {
 		return oArrEnemigos;
-	}
+	}*/
 };
 
 #endif // !__CONTROLADOR_H__

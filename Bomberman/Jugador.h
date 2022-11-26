@@ -40,7 +40,8 @@ public:
         this->CDI=CDI;
     }
     ~CJugador() {}
-
+    int getX() { return x + 2 * 3;}
+    int getY() { return y + 15 * 3 + dy;}
     Rectangle retornarRectangulo() {
         return Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);
     }
@@ -69,9 +70,6 @@ public:
         }
         
     }
-
-    int getX() {return x;}
-    int getY() {return y;}
 
     void disminuirvidas(int PuntaIzquierda, int PuntaDerecha, int CentroInicioY, int CentroFinalY, 
                         int PuntaSuperior, int PuntaInferior, int CentroInicioX, int CentroFinalX) {

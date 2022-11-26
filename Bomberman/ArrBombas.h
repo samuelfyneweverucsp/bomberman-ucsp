@@ -25,7 +25,7 @@ public:
                     arregloBombas.at(i)->animar();
                     break;
                 case Estado::explosion:
-                arregloBombas.at(i)->dibujarExplosion(g, bmpExplosion, matriz);
+                arregloBombas.at(i)->DibujarExplosion(g, bmpExplosion, matriz);
                 arregloBombas.at(i)->animarExplosion();
                     break;
                 case Estado::desaparecer:
@@ -35,7 +35,7 @@ public:
                     break;
             }
         }
-                           }
+    }
     
     vector<CBomba*> getarregloBombas() {
         return arregloBombas;

@@ -23,14 +23,15 @@ namespace Bomberman {
 		Bitmap^ bmpJugador = gcnew Bitmap("Imagenes\\Jugador.png");
 		Bitmap^ bmpBomba = gcnew Bitmap("Imagenes\\bomba.png");
 		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png");
-		Bitmap^ bmpEnemigo = gcnew Bitmap("Imagenes\\bmpMejoras.png");
+		//Bitmap^ bmpEnemigo = gcnew Bitmap("Imagenes\\bmpEnemigo.png");
+		//Bitmap^ bmpMejoras = gcnew Bitmap("Imagenes\\bmpMejoras.png");
 	public:
 		Juego(void)
 		{
 			bmpJugador->MakeTransparent(bmpJugador->GetPixel(0,0)); // quitarle el fondo para hacerlo transparente
 			bmpBomba->MakeTransparent(bmpBomba->GetPixel(0,0));
 			bmpExplosion->MakeTransparent(bmpExplosion->GetPixel(0,0));
-			bmpEnemigo->MakeTransparent(bmpEnemigo->GetPixel(0,0));
+			//bmpEnemigo->MakeTransparent(bmpEnemigo->GetPixel(0,0));
 			InitializeComponent();
 			//
 			//TODO: agregar c�digo de constructor aqu�
@@ -93,7 +94,7 @@ namespace Bomberman {
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras, bmpEnemigo);
+		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador);// , bmpMejoras, bmpEnemigo);
 		buffer->Render(g);
 		delete buffer, espacio, g;
 	}
@@ -124,7 +125,7 @@ namespace Bomberman {
 		System::Void UltimaTeclaPresionada(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 			switch (e->KeyCode) {
 			case Keys::Space:
-				oControladora->agregarBomba();
+				oControlador->agregarBomba();
 				break;
 			default:
 				oControlador->getoJugador()->setDireccion(Direcciones::Ninguna);
@@ -132,7 +133,7 @@ namespace Bomberman {
 			}
 		}
 
-	private: System::Void trCarga_Tick(System::Object^ sender, System::EventArgs^ e) {
+/*	private: System::Void trCarga_Tick(System::Object^ sender, System::EventArgs^ e) {
 		lblNivel->Text = "Nivel: " + oControlador->getNivel();
 		pbCarga->Increment(10);
 		if(trCarga->Interval == 2500 && oControlador->getoArrEnemigos()->getarregloEnemigos().size() < oControlador->getNivel()) { 
@@ -148,6 +149,6 @@ namespace Bomberman {
 			pbCarga->Enabled = false;
 		}
 	}
-
+	*/
 };
 }

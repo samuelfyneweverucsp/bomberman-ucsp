@@ -2,6 +2,9 @@
 #define __ENEMIGO_H__
 #include <ctime>
 #include <cstdlib>
+#include "Juego.h"
+#include "Juego.h"
+
 using namespace System::Drawing;
 enum Estado_Enemigo{Eliminado, Normal};
 class CEnemigo
@@ -34,7 +37,7 @@ public:
         x = i * 50;     // actualizar su posicion
         y = j * 50;
         Rectangle Aumento = Rectangle(x, y, 40, 40); 
-        g->DrawImage(bmpEnemigo, Aumento, porcionAUsar, GraphicsUnit::Pixel);
+        g->DrawImage(bmpEnemigo, Aumento, porcionAusar, GraphicsUnit::Pixel);
         ubicado = true;
         x += dx;
         if(matriz[y/50][(x+50)/50] == 3 || matriz[y/50][(x+50)/50] == 1 || matriz[y/50][(x-10)/50] == 3 || matriz[y/50][(x-10)/50] == 1) {
