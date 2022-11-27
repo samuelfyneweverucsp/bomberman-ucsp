@@ -9,6 +9,8 @@ namespace Bomberman {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Media;
+
 
 	/// <summary>
 	/// Resumen de Juego
@@ -16,6 +18,7 @@ namespace Bomberman {
 	public ref class Juego : public System::Windows::Forms::Form
 {
 	private:
+		SoundPlayer^ MusicaN;
 		CControlador *oControlador = new CControlador();
 		Bitmap^ bmpSolido = gcnew Bitmap("Imagenes\\bmpSolido.png");
 		Bitmap^ bmpDestruible = gcnew Bitmap("Imagenes\\bmpDestruible.png");
@@ -80,7 +83,7 @@ namespace Bomberman {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(532, 366);
+			this->ClientSize = System::Drawing::Size(850, 750);
 			this->Name = L"Juego";
 			this->Text = L"Juego";
 			this->Load += gcnew System::EventHandler(this, &Juego::Juego_Load);
@@ -90,10 +93,14 @@ namespace Bomberman {
 
 		}
 #pragma endregion
+		void MusicaNivel() {
+			MusicaN = gcnew SoundPlayer("Audio\\ModoSolitario.wav");
+		}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
+		MusicaNivel();
 		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador);// , bmpMejoras, bmpEnemigo);
 		buffer->Render(g);
 		delete buffer, espacio, g;
@@ -142,7 +149,7 @@ namespace Bomberman {
 		else {
 			trCarga->Enabled = false;
 			timer1->Enabled = true;
-
+			MusicaNivel();
 			lblNivel->Visible = false;
 			lblNivel->Enabled = false;
 			pbCarga->Visible = false;
