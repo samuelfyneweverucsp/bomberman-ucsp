@@ -41,7 +41,9 @@ public:
 			vector_mejoras.at(i)->animar();
 		}
 	}
-
+	vector<CMejora*>getvector_mejoras() {
+		return vector_mejoras;
+	}
 
 private:
 	vector<CMejora*>vector_mejoras;
