@@ -19,9 +19,28 @@ public:
 		indiceY = 0;
 		}
 	~CMejora(){}
-	void dibujar(Graphics^ g, Bitmap^ bmpMejora, int** matriz);
-	virtual void animar();
-	virtual void poder();
+	void dibujar(Graphics^ g, Bitmap^ bmpMejoras, int** matriz) {
+		Rectangle porcionUsar = Rectangle(indiceX * ancho, indiceY * alto, ancho, alto);
+
+		while (ubicado == false) {
+			if (matriz[i][j] == 3) {
+				ubicado = true;
+			}
+			else {
+				if (j < 16) {
+					i++;
+					if (i == 14) {
+						i = 1;
+						j++;
+					}
+				}
+			}
+		}
+		Rectangle aumento = Rectangle(j * 50, i * 50, ancho * 3.125, alto * 3.125);
+		g->DrawImage(bmpMejoras, aumento, porcionUsar, GraphicsUnit::Pixel);
+	}
+	virtual void animar(){}
+	virtual void poder(){}
 protected:
 	int i;
 	int j;
