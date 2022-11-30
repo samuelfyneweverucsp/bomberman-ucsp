@@ -2,8 +2,6 @@
 #define __ENEMIGO_H__
 #include <ctime>
 #include <cstdlib>
-#include "Juego.h"
-#include "Juego.h"
 
 using namespace System::Drawing;
 enum Estado_Enemigo{Eliminado, Normal};
@@ -14,8 +12,8 @@ public:
         srand(time(NULL));
         i=rand()%13 + 1; // Fila del enemigo: de 1 a 13
         j=rand()%13 + 2; // Columna del enemigo: de 2 a 14
-        x=715; // posicion por defecto
-        y=650; // ya vamos a sobreescribirlo pronto
+        x=0; // posicion por defecto
+        y=0; // ya vamos a sobreescribirlo pronto
         dx=5; // empieza moviendose a la derecha
         indiceX=0; // para animaciones
         indiceY=0;
@@ -24,34 +22,39 @@ public:
         ubicado=false;  // hasta ahora no lo hemos ubicado
         estado=Normal;  // ni hemos eliminadok
     }
-    void dibujar(Graphics^g, Bitmap^bmpenemigo, int **matriz) {
-        Rectangle porcionAusar = Rectangle(indiceX*ancho, indiceY*alto, ancho, alto);
-        while((matriz[i][j-1] != 2 || matriz[i][j] != 2 || matriz[i][j+1] != 2) && ubicado == false) { // mientras no lo hemos ubicado
-            j++; // lo intentamos encontrar sitio
-            if(j == 15) { // al fin de la fila
-                i++;    // vamos al siguiente fila
-                j = 1;  // y empezamos al principio de la columna
+    void dibujar(Graphics^g, Bitmap^bmpEnemigo, int **matriz) {
+        Rectangle porcionAusar = Rectangle(indiceX * ancho, indiceY * alto, ancho, alto);
+        while ((matriz[i][j-1] != 2 || matriz[i][j] != 2 || matriz[i][j+1] !=2 ) && ubicado == false && i<14) {
+            j++;
+            if (j == 15) {
+                i++;
+                j = 0;
+                if (i == 14) {
+                    i = 1;
+                }
             }
-            if(i >= 14) {break;} // no hemos encontrado sitio :(
+            x = j * 50;
+            y = i * 50;
         }
-        x = i * 50;     // actualizar su posicion
-        y = j * 50;
         Rectangle Aumento = Rectangle(x, y, 40, 40); 
         g->DrawImage(bmpEnemigo, Aumento, porcionAusar, GraphicsUnit::Pixel);
         ubicado = true;
         x += dx;
-        if(matriz[y/50][(x+50)/50] == 3 || matriz[y/50][(x+50)/50] == 1 || matriz[y/50][(x-10)/50] == 3 || matriz[y/50][(x-10)/50] == 1) {
+        if ((matriz[y / 50][(x + 50) / 50] == 3 || matriz[y / 50][(x + 50) / 50] == 1 || 
+            matriz[y / 50][(x - 10) / 50] == 3 || matriz[y / 50][(x - 10) / 50] == 1))
             dx *= -1;
-        } // CHEQUEAR ESTO MAS ALLA, los resultados de esta division por enteros son adecuados??
     }
     void animar(){
         if(indiceX >=0 && indiceX<5){
-            indiceX++;
+            indiceX++; //va a paseando por las imagenes de la primera a la ultima
         }
         if(indiceX == 5){
             while(indiceX != 0)
-                {indiceX--;}
+                indiceX--; //ahora va a regresar del ultimo al primero (animación bonita)
         }
+    }
+    Rectangle retornarRectangulo() {
+        return Rectangle(x, y, 50, 50);
     }
 private:
     int x; // posicion
@@ -62,13 +65,14 @@ private:
 
     int dx; // movimiento (solamente horizontal)
 
-    int indiceX;
+    int indiceX; //para animar
     int indiceY;
 
-    int ancho;
+    int ancho; //imagen
     int alto;
 
-    bool ubicado;
+    bool ubicado; 
+
     Estado_Enemigo estado;
 
 

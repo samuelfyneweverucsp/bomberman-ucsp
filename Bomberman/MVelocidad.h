@@ -2,10 +2,10 @@
 #define __MEJORAVELOCIDAD_H__
 #include "Mejora.h"
 
-class CmejoraVelocidad: public CMejora
-{
+class CmejoraVelocidad: public CMejora {
 public:
-	CmejoraVelocidad(){}
+	CmejoraVelocidad() {
+	}
 	~CmejoraVelocidad(){}
 
 	void animar() {
@@ -19,9 +19,9 @@ public:
 		}
 	}
 	
-	void poder() {
-		CMejora::poder();
-		//aquí aparece lo que nos brinda
+	void poder(CJugador* oJugador) {
+		CMejora::poder(oJugador);
+		oJugador->setAceleracion(oJugador->getAceleracion() + 3);
 	}
 
 private:
@@ -29,4 +29,3 @@ private:
 };
 
 #endif // !__MEJORAVELOCIDAD_H__
-

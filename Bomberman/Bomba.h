@@ -133,17 +133,6 @@ public:
             }
         }
     }
-    /*void dibujarExplosion(Graphics^ g, Bitmap^ bmpBomba) {
-
-        Rectangle porcionAUsar = Rectangle(indiceEX*anchoExplosion, indiceEY*altoExplosion, anchoExplosion, altoExplosion); // indiceY = 0
-        Rectangle centro = Rectangle(x, y, 50, 50);
-        g->DrawImage(bmpBomba, centro, porcionAUsar, GraphicsUnit::Pixel);
-
-        if (tiempo_antes_de_explotar == 6){estado = Estado::explosion;}
-
-
-    }
-    */
     void animarExplosion() {
         if(indiceEX >= 0 && indiceEX < 3) {
             indiceEX++;

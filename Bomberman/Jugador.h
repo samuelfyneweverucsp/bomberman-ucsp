@@ -20,7 +20,8 @@ enum Direcciones{Arriba,Abajo,Izquierda,Derecha,Ninguna};
 // o acá (más fácil con ejemplos, pero en inglés): https://www.programiz.com/cpp-programming/enumeration
 
 class CJugador {
-public: 
+public:
+    CJugador(){}
     CJugador(int x, int y) {
         // Inicializar la posición del jugador
         this -> x = x;
@@ -38,8 +39,15 @@ public:
         ultima = Direcciones::Abajo; // empieza dirigido hacía abajo
         this->CAA=CAA;
         this->CDI=CDI;
+
+        vidas = 5;
+        aceleracion = 0;
     }
     ~CJugador() {}
+    void setVidas(int v) { vidas = v; }
+    int getVidas() { return vidas; }
+    void setAceleracion(int a) { aceleracion = a; }
+    int getAceleracion() { return aceleracion; }
     int getX() { return x + 2 * 3;}
     int getY() { return y + 15 * 3 + dy;}
     Rectangle retornarRectangulo() {
@@ -71,19 +79,24 @@ public:
         
     }
 
+    void disminuirvidas() {
+        x = 50;
+        y = 50;
+        vidas--;
+    }
+
     void disminuirvidas(int PuntaIzquierda, int PuntaDerecha, int CentroInicioY, int CentroFinalY, 
                         int PuntaSuperior, int PuntaInferior, int CentroInicioX, int CentroFinalX) {
-                            if(getX() >= PuntaIzquierda && getX() <= PuntaDerecha && getY() >= CentroInicioY && getY() <= CentroFinalY) {
-                                x = 50;
-                                y = 50;
-                                vidas--;
-                            }
-                            if(getY() >= PuntaSuperior && getY() <= PuntaInferior && getX() >= CentroInicioX && getX() <= CentroFinalX) {
-                                x = 50;
-                                y = 50;
-                                vidas--;
-                            }
-        
+        if(getX() >= PuntaIzquierda && getX() <= PuntaDerecha && getY() >= CentroInicioY && getY() <= CentroFinalY) {
+            x = 50;
+            y = 50;
+            vidas--;
+        }
+        if(getY() >= PuntaSuperior && getY() <= PuntaInferior && getX() >= CentroInicioX && getX() <= CentroFinalX) {
+            x = 50;
+            y = 50;
+            vidas--;
+        }
     }
 
     void dibujarJugador(Graphics^g, Bitmap^bmpJugador,int **matriz) {
@@ -116,7 +129,7 @@ public:
                 else
                     indiceX = 1; // para mantener el ciclo de caminar hacia arriba
                 dx = 0; // no moviéndose en el eje x
-                dy = -10; // moviéndose hacía arriba; su coordinado se está disminuyendo
+                dy = -10 - aceleracion; // moviéndose hacía arriba; su coordinado se está disminuyendo
                 ultima = Arriba; // para animarlo
                 break;
             case Direcciones::Abajo:
@@ -127,7 +140,7 @@ public:
                 else
                     indiceY = 1; // para mantener el ciclo de caminar hacia arriba
                     dx = 0; // todavía no moviéndose en el eje x
-                    dy = 10; // moviéndose hacía abajo; su coordinado se está aumentando
+                    dy = 10 + aceleracion; // moviéndose hacía abajo; su coordinado se está aumentando
                     ultima = Abajo;
                     break;
             case Direcciones::Izquierda:
@@ -137,7 +150,7 @@ public:
                     indiceX++; // para avanzar en el ciclo de caminar hacia la izquierda
                 else
                     indiceX = 1; // para mantener el ciclo de caminar hacia la izquierda
-                    dx = -10; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
+                    dx = -10 - aceleracion; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
                     dy = 0; // no moviéndose en el eje y
                     ultima = Izquierda;
                     break;
@@ -148,7 +161,7 @@ public:
                     indiceX++; // para avanzar en el ciclo de caminar hacia abajo
                 else
                     indiceX = 1; // para mantener el ciclo de caminar hacia arriba
-                dx = 10; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
+                dx = 10 + aceleracion; //  moviéndose hacía la izquierda; su coordinado se está diminuyendo
                 dy = 0; // no moviéndose en el eje y
                 ultima = Derecha;
                 break;
@@ -189,6 +202,7 @@ private:
     int indiceY; // (qué imagen usar para el sprite)
 
     int vidas;
+    int aceleracion;
 
     Direcciones direccion; // dirección actual
     Direcciones ultima; // en qué posición estaba antes

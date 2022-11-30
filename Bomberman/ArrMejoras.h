@@ -5,7 +5,7 @@
 #include "MCalavera.h"
 #include "MVida.h"
 #include <vector>
-#include "stdlib.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -40,6 +40,9 @@ public:
 			vector_mejoras.at(i)->dibujar(g, bmpMejoras, matriz);
 			vector_mejoras.at(i)->animar();
 		}
+	}
+	void eliminarMejora(int posicion) {
+		vector_mejoras.erase(vector_mejoras.begin() + posicion);
 	}
 	vector<CMejora*>getvector_mejoras() {
 		return vector_mejoras;

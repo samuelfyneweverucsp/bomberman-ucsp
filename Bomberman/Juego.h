@@ -26,14 +26,14 @@ namespace Bomberman {
 		Bitmap^ bmpBomba = gcnew Bitmap("Imagenes\\bomba.png");
 		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png");
 		Bitmap^ bmpMejoras = gcnew Bitmap("Imagenes\\bmpMejoras.png");
-	   //Bitmap^ bmpEnemigo = gcnew Bitmap("Imagenes\\bmpEnemigo.png");
+		Bitmap^ bmpEnemigo = gcnew Bitmap("Imagenes\\bmpEnemigo.png");
 	public:
 		Juego(void)
 		{
 			bmpJugador->MakeTransparent(bmpJugador->GetPixel(0,0)); // quitarle el fondo para hacerlo transparente
 			bmpBomba->MakeTransparent(bmpBomba->GetPixel(0,0));
 			bmpExplosion->MakeTransparent(bmpExplosion->GetPixel(0,0));
-			//bmpEnemigo->MakeTransparent(bmpEnemigo->GetPixel(0,0));
+			bmpEnemigo->MakeTransparent(bmpEnemigo->GetPixel(0,0));
 			InitializeComponent();
 			oControlador = new CControlador();
 			//
@@ -115,10 +115,11 @@ private: System::Windows::Forms::Timer^ trCarga;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::InactiveCaptionText;
-			this->ClientSize = System::Drawing::Size(584, 561);
+			this->ClientSize = System::Drawing::Size(848, 736);
 			this->Controls->Add(this->pbCarga);
 			this->Controls->Add(this->lblNivel);
 			this->Name = L"Juego";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Juego";
 			this->Load += gcnew System::EventHandler(this, &Juego::Juego_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Juego::MantenerTecla);
@@ -130,15 +131,16 @@ private: System::Windows::Forms::Timer^ trCarga;
 #pragma endregion
 		void MusicNivel() {
 			MusicaN = gcnew SoundPlayer("Audio\\ModoSolitario.wav");
+			MusicaN->PlayLooping();
 		}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		MusicNivel();
-		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras);// , bmpMejoras, bmpEnemigo);
+		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras, bmpEnemigo);
 		buffer->Render(g);
 		delete buffer, espacio, g;
+		this->Text = "" + oControlador->getoJugador()->getVidas();
 	}
 
 	private: System::Void Juego_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -184,7 +186,7 @@ private: System::Void trCarga_Tick(System::Object^ sender, System::EventArgs^ e)
 	else {
 		trCarga->Enabled = false;
 		timer1->Enabled = true;
-
+		MusicNivel();
 		lblNivel->Visible = false;
 		lblNivel->Enabled = false;
 		pbCarga->Visible = false;

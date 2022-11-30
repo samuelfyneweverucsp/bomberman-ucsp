@@ -6,10 +6,6 @@
 #include <stdlib.h>
 using namespace System::Drawing;
 
-/*
-int filas = 15;
-int columnas = 17;*/
-
 class CEscenario {
 public:
     CEscenario() {

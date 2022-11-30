@@ -18,9 +18,9 @@ public:
 		}
 	}
 
-	void poder() {
-		CMejora::poder();
-		//aquí aparece lo que nos brinda
+	void poder(CJugador* oJugador) {
+		CMejora::poder(oJugador);
+		oJugador->setVidas(oJugador->getVidas() + 1);
 	}
 
 private:

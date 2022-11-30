@@ -1,5 +1,6 @@
 #pragma once
 #include "Juego.h"
+
 namespace Bomberman {
 
 	using namespace System;
@@ -58,7 +59,7 @@ namespace Bomberman {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -231,31 +232,31 @@ namespace Bomberman {
 	}
 	private: System::Void pictureBox1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 	}
-private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void pictureBox3_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void pictureBox2_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void btnInstruccionesAparecer_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Width = 535;
-	btnInstuccionesDesaparecer->Visible = true;
-	btnInstruccionesAparecer->Visible = false;
-}
-private: System::Void MenuPrincipal_Load(System::Object^ sender, System::EventArgs^ e) {
-	Musica();
-}
-private: System::Void btnJugar_Click(System::Object^ sender, System::EventArgs^ e) {
-	Juego^ frm = gcnew Juego();
-	this->Visible = false;
-	frm->Show();
-	Music->Stop();
-}
-};
+	private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void pictureBox3_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void pictureBox2_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void btnInstruccionesAparecer_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Width = 535;
+		btnInstuccionesDesaparecer->Visible = true;
+		btnInstruccionesAparecer->Visible = false;
+	}
+	private: System::Void MenuPrincipal_Load(System::Object^ sender, System::EventArgs^ e) {
+		Musica();
+	}
+	private: System::Void btnJugar_Click(System::Object^ sender, System::EventArgs^ e) {
+		Juego^ frm = gcnew Juego();
+		this->Visible = false;
+		frm->Show();
+		Music->Stop();
+	}
+	};
 }

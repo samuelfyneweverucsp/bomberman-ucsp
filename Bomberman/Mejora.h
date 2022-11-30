@@ -2,6 +2,7 @@
 #define __MEJORA_H__
 #include <ctime>
 #include <stdlib.h>
+#include "Jugador.h"
 using namespace System::Drawing;
 
 class CMejora {
@@ -36,11 +37,14 @@ public:
 				}
 			}
 		}
-		Rectangle aumento = Rectangle(j * 50, i * 50, ancho * 3.125, alto * 3.125);
+		Rectangle aumento = Rectangle(j * 50.07, i * 50.07, ancho * 3, alto * 3);
 		g->DrawImage(bmpMejoras, aumento, porcionUsar, GraphicsUnit::Pixel);
 	}
+	Rectangle devolverRectangulo() {
+		return Rectangle(j * 50, i * 50, ancho * 3.125, alto * 3.125);
+	}
 	virtual void animar(){}
-	virtual void poder(){}
+	virtual void poder(CJugador *oJugador){}
 protected:
 	int i;
 	int j;

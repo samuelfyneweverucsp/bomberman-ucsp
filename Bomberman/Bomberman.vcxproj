@@ -81,7 +81,6 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
@@ -122,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Juego.cpp" />
+    <ClCompile Include="MenuPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controlador.h" />
@@ -129,11 +129,13 @@
     <ClInclude Include="Juego.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MenuPrincipal.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Juego.resx">
       <DependentUpon>Juego.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MenuPrincipal.resx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
