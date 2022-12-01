@@ -133,6 +133,7 @@
     <ClInclude Include="JuegoMulti.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Marcador.h" />
     <ClInclude Include="MenuPrincipal.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -140,6 +141,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Juego.resx">
       <DependentUpon>Juego.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JuegoMulti.resx">
+      <DependentUpon>JuegoMulti.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.h</DependentUpon>

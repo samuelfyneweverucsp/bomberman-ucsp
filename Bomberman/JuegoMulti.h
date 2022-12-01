@@ -28,6 +28,17 @@ namespace Bomberman {
 		Bitmap^ bmpBomba = gcnew Bitmap("Imagenes\\bomba.png");
 		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png");
 		Bitmap^ bmpMejoras = gcnew Bitmap("Imagenes\\bmpMejoras.png");
+		Bitmap^ bmpFondo = gcnew Bitmap("Imagenes\\bmpFondo.png");
+		Bitmap^ bmpCabezaPer1 = gcnew Bitmap("Imagenes\\bmpCabezaPersonaje1.png");
+		Bitmap^ bmpCabezaPer2 = gcnew Bitmap("Imagenes\\bmpCabezaPersonaje2.png");
+		Bitmap^ bmpVida3 = gcnew Bitmap("Imagenes\\bmpVida3.png");
+		Bitmap^ bmpVida2 = gcnew Bitmap("Imagenes\\bmpVida2.png");
+		Bitmap^ bmpVida1 = gcnew Bitmap("Imagenes\\bmpVida1.png");
+		Bitmap^ bmpVida0 = gcnew Bitmap("Imagenes\\bmpVida0.png");
+		Bitmap^ bmpganaJ1 = gcnew Bitmap("Imagenes\\ganaJugador1.png");
+		Bitmap^ bmpganaJ2 = gcnew Bitmap("Imagenes\\ganaJugador2.png");
+
+	private: System::Windows::Forms::Label^ lblNivel;
 	public:
 		JuegoMulti(void)
 		{
@@ -53,16 +64,17 @@ namespace Bomberman {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ lblNivel;
+
 	private: System::Windows::Forms::ProgressBar^ pbCarga;
 	private: System::Windows::Forms::Timer^ trCarga;
 	private: System::Windows::Forms::Timer^ timer1;
+	private: System::ComponentModel::IContainer^ components;
 
 	private:
 		/// <summary>
 		/// Variable del diseñador necesaria.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -72,32 +84,20 @@ namespace Bomberman {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(JuegoMulti::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
-			this->lblNivel = (gcnew System::Windows::Forms::Label());
 			this->pbCarga = (gcnew System::Windows::Forms::ProgressBar());
 			this->trCarga = (gcnew System::Windows::Forms::Timer(this->components));
+			this->lblNivel = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// timer1
 			// 
 			this->timer1->Tick += gcnew System::EventHandler(this, &JuegoMulti::timer1_Tick);
 			// 
-			// lblNivel
-			// 
-			this->lblNivel->AutoSize = true;
-			this->lblNivel->BackColor = System::Drawing::Color::Transparent;
-			this->lblNivel->Font = (gcnew System::Drawing::Font(L"Trebuchet MS", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lblNivel->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->lblNivel->Location = System::Drawing::Point(212, 237);
-			this->lblNivel->Name = L"lblNivel";
-			this->lblNivel->Size = System::Drawing::Size(89, 35);
-			this->lblNivel->TabIndex = 0;
-			this->lblNivel->Text = L"Nivel:";
-			// 
 			// pbCarga
 			// 
-			this->pbCarga->Location = System::Drawing::Point(188, 300);
+			this->pbCarga->Location = System::Drawing::Point(348, 541);
 			this->pbCarga->Name = L"pbCarga";
 			this->pbCarga->Size = System::Drawing::Size(161, 23);
 			this->pbCarga->TabIndex = 1;
@@ -108,11 +108,26 @@ namespace Bomberman {
 			this->trCarga->Interval = 2500;
 			this->trCarga->Tick += gcnew System::EventHandler(this, &JuegoMulti::trCarga_Tick);
 			// 
+			// lblNivel
+			// 
+			this->lblNivel->AutoSize = true;
+			this->lblNivel->BackColor = System::Drawing::Color::Transparent;
+			this->lblNivel->Font = (gcnew System::Drawing::Font(L"Trebuchet MS", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblNivel->ForeColor = System::Drawing::SystemColors::ButtonFace;
+			this->lblNivel->Location = System::Drawing::Point(357, 158);
+			this->lblNivel->Name = L"lblNivel";
+			this->lblNivel->Size = System::Drawing::Size(89, 35);
+			this->lblNivel->TabIndex = 0;
+			this->lblNivel->Text = L"Nivel:";
+			// 
 			// JuegoMulti
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::InactiveCaptionText;
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(848, 736);
 			this->Controls->Add(this->pbCarga);
 			this->Controls->Add(this->lblNivel);
@@ -121,8 +136,8 @@ namespace Bomberman {
 			this->Text = L"JuegoMulti";
 			this->Load += gcnew System::EventHandler(this, &JuegoMulti::JuegoMulti_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &JuegoMulti::MantenerTecla1);
-			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &JuegoMulti::MantenerTecla2);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &JuegoMulti::UltimaTeclaPresionada1);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &JuegoMulti::MantenerTecla2);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &JuegoMulti::UltimaTeclaPresionada2);
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -138,7 +153,8 @@ namespace Bomberman {
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
 		oControlador->dibujarMultiPlayer(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible,
-										bmpJugador1, bmpJugador2, bmpMejoras);
+										bmpJugador1, bmpJugador2, bmpMejoras, bmpFondo, bmpCabezaPer1, bmpCabezaPer2,
+										bmpVida3, bmpVida2, bmpVida1, bmpVida0, bmpganaJ1, bmpganaJ2);
 		buffer->Render(g);
 		delete buffer, espacio, g;
 		this->Text = "" + oControlador->getoJugador1()->getVidas();

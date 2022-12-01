@@ -27,6 +27,14 @@ namespace Bomberman {
 		Bitmap^ bmpExplosion = gcnew Bitmap("Imagenes\\explosion.png");
 		Bitmap^ bmpMejoras = gcnew Bitmap("Imagenes\\bmpMejoras.png");
 		Bitmap^ bmpEnemigo = gcnew Bitmap("Imagenes\\bmpEnemigo.png");
+		Bitmap^ bmpFondo = gcnew Bitmap("Imagenes\\bmpFondo.png");
+		Bitmap^ bmpCabezaPer = gcnew Bitmap("Imagenes\\bmpCabezaPersonaje1.png");
+		Bitmap^ bmpVida3 = gcnew Bitmap("Imagenes\\bmpVida3.png");
+		Bitmap^ bmpVida2 = gcnew Bitmap("Imagenes\\bmpVida2.png");
+		Bitmap^ bmpVida1 = gcnew Bitmap("Imagenes\\bmpVida1.png");
+		Bitmap^ bmpVida0 = gcnew Bitmap("Imagenes\\bmpVida0.png");
+		Bitmap^ bmpganar = gcnew Bitmap("Imagenes\\bmpganar.png");
+		Bitmap^ bmpperder = gcnew Bitmap("Imagenes\\bmpperder.png");
 	public:
 		Juego(void)
 		{
@@ -74,6 +82,7 @@ private: System::Windows::Forms::Timer^ timer1;
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Juego::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->lblNivel = (gcnew System::Windows::Forms::Label());
 			this->pbCarga = (gcnew System::Windows::Forms::ProgressBar());
@@ -91,7 +100,7 @@ private: System::Windows::Forms::Timer^ timer1;
 			this->lblNivel->Font = (gcnew System::Drawing::Font(L"Trebuchet MS", 20.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lblNivel->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->lblNivel->Location = System::Drawing::Point(212, 237);
+			this->lblNivel->Location = System::Drawing::Point(357, 158);
 			this->lblNivel->Name = L"lblNivel";
 			this->lblNivel->Size = System::Drawing::Size(89, 35);
 			this->lblNivel->TabIndex = 0;
@@ -99,10 +108,11 @@ private: System::Windows::Forms::Timer^ timer1;
 			// 
 			// pbCarga
 			// 
-			this->pbCarga->Location = System::Drawing::Point(188, 300);
+			this->pbCarga->Location = System::Drawing::Point(348, 541);
 			this->pbCarga->Name = L"pbCarga";
 			this->pbCarga->Size = System::Drawing::Size(161, 23);
 			this->pbCarga->TabIndex = 1;
+			this->pbCarga->Click += gcnew System::EventHandler(this, &Juego::pbCarga_Click);
 			// 
 			// trCarga
 			// 
@@ -115,6 +125,8 @@ private: System::Windows::Forms::Timer^ timer1;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::InactiveCaptionText;
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(848, 736);
 			this->Controls->Add(this->pbCarga);
 			this->Controls->Add(this->lblNivel);
@@ -137,7 +149,9 @@ private: System::Windows::Forms::Timer^ timer1;
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		oControlador->dibujarOnePlayer(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras, bmpEnemigo);
+		oControlador->dibujarOnePlayer(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, 
+										bmpJugador, bmpMejoras, bmpEnemigo, bmpFondo, bmpCabezaPer, bmpVida3,
+										bmpVida2, bmpVida1, bmpVida0, bmpganar, bmpperder);
 		buffer->Render(g);
 		delete buffer, espacio, g;
 		this->Text = "" + oControlador->getoJugador1()->getVidas();
@@ -192,6 +206,8 @@ private: System::Void trCarga_Tick(System::Object^ sender, System::EventArgs^ e)
 		pbCarga->Visible = false;
 		pbCarga->Enabled = false;
 	}
+}
+private: System::Void pbCarga_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

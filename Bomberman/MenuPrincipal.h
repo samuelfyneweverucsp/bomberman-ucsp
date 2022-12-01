@@ -294,6 +294,7 @@ namespace Bomberman {
 			this->Controls->Add(this->pictureBox2);
 			this->Controls->Add(this->pictureBox1);
 			this->Name = L"MenuPrincipal";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"MenuPrincipal";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
@@ -303,6 +304,7 @@ namespace Bomberman {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox6))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
+			Musica();
 
 		}
 #pragma endregion
@@ -339,7 +341,6 @@ namespace Bomberman {
 	private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void MenuPrincipal_Load(System::Object^ sender, System::EventArgs^ e) {
-		Musica();
 	}
 };
 }

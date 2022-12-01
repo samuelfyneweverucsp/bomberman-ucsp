@@ -5,6 +5,7 @@
 #include "ArrBombas.h"
 #include "ArrMejoras.h"
 #include "ArrEnemigos.h"
+#include "Marcador.h"
 
 class CControlador
 {
@@ -16,6 +17,7 @@ private:
 	CArrBombas* oArrBombas2;
 	CArrMejoras* oArrMejoras;
 	CArrEnemigos* oArrEnemigos;
+	CMarcador* oMarcador;
 	int nivel;
 
 public:
@@ -90,7 +92,9 @@ public:
 		}
 	}
 	void dibujarOnePlayer(Graphics ^ g, Bitmap ^ bmpBase, Bitmap ^ bmpSolido, Bitmap ^ bmpBomba, 
-				Bitmap ^ bmpExplosion, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador,Bitmap^ bmpMejoras, Bitmap ^ bmpEnemigo)
+				Bitmap ^ bmpExplosion, Bitmap ^ bmpDestruible, Bitmap ^ bmpJugador,Bitmap^ bmpMejoras, 
+				Bitmap ^ bmpEnemigo, Bitmap^ bmpFondo, Bitmap^ bmpCabezaPer1, Bitmap^ bmpVida3, 
+				Bitmap^ bmpVida2, Bitmap^ bmpVida1, Bitmap^ bmpVida0, Bitmap^ bmpganar, Bitmap^ bmpperder)
 	{
 		oEscenario->PintarBase(g, bmpBase);
 		oArrMejoras->dibujar(g, bmpMejoras, oEscenario->getMatriz());
@@ -98,13 +102,36 @@ public:
 		oJugador1->moverJugador(g, bmpJugador, oEscenario->getMatriz()); 
 		oArrBombas1->dibujar_una_bomba(g, bmpBomba, bmpExplosion, oJugador1->getX(), oJugador1->getY(), oEscenario->getMatriz());
 		oArrEnemigos->dibujar(g, bmpEnemigo, oEscenario->getMatriz());
-		disminuir_Vidas_Por_Bomba(oArrBombas1, oJugador1);
-		disminuir_Vidas_Por_Enemigo(oJugador1);
 		matarEnemigo(oArrBombas1);
 		agarrarMejoras(oJugador1);
+		oMarcador->pintarMarcador(g, bmpFondo);
+		oMarcador->pintarJugador(g, bmpCabezaPer1);
+		oMarcador->pintarVidas(g, bmpVida3, bmpVida2, bmpVida1, bmpVida0, oJugador1->getVidas(), ((15 / 2) * 50) + 63);
+		disminuir_Vidas_Por_Bomba(oArrBombas1, oJugador1);
+		disminuir_Vidas_Por_Enemigo(oJugador1);
+		ganarSolitario(g, bmpganar, bmpperder);
+
+	}
+	void ganarSolitario(Graphics^ g, Bitmap^ bmpganar, Bitmap^ bmpperder) {
+		if (oArrEnemigos->getArregloEnemigos().size() == 0 && oJugador1->getEstado(oJugador1) == vivo) {
+			g->DrawImage(bmpganar, 50, 50, 750, 650);
+		}
+		if (oJugador1->getEstado(oJugador1)==muerto) {
+			g->DrawImage(bmpperder, 50, 50, 750, 650);
+		}
+	}
+	void ganarMultiplayer(Graphics^ g, Bitmap^ bmpganaJ1, Bitmap^ bmpganaJ2) {
+		if (oJugador1->getEstado(oJugador1) == muerto && oJugador2->getEstado(oJugador2) == vivo) {
+			g->DrawImage(bmpganaJ2, 50, 50, 750, 650);
+		}
+		if (oJugador1->getEstado(oJugador1) == vivo && oJugador2->getEstado(oJugador2) == muerto) {
+			g->DrawImage(bmpganaJ1, 50, 50, 750, 650);
+		}
 	}
 	void dibujarMultiPlayer(Graphics^ g, Bitmap^ bmpBase, Bitmap^ bmpSolido, Bitmap^ bmpBomba,Bitmap^ bmpExplosion,
-				Bitmap^ bmpDestruible, Bitmap^ bmpJugador, Bitmap^ bmpJugador2, Bitmap^ bmpMejoras)
+				Bitmap^ bmpDestruible, Bitmap^ bmpJugador, Bitmap^ bmpJugador2, Bitmap^ bmpMejoras, Bitmap^ bmpFondo,
+				Bitmap^ bmpCabezaPer1, Bitmap^ bmpCabezaPer2, Bitmap^ bmpVida3,Bitmap^ bmpVida2, Bitmap^ bmpVida1, 
+				Bitmap^ bmpVida0, Bitmap^ bmpganaJ1, Bitmap^ bmpganaJ2)
 	{
 		oEscenario->PintarBase(g, bmpBase);
 		oArrMejoras->dibujar(g, bmpMejoras, oEscenario->getMatriz());
@@ -119,6 +146,11 @@ public:
 		disminuir_Vidas_Por_Bomba(oArrBombas2, oJugador2);
 		agarrarMejoras(oJugador1);
 		agarrarMejoras(oJugador2);
+		oMarcador->pintarMarcador(g, bmpFondo);
+		oMarcador->pintarJugador(g, bmpCabezaPer1, bmpCabezaPer2);
+		oMarcador->pintarVidas(g, bmpVida3, bmpVida2, bmpVida1, bmpVida0, oJugador1->getVidas(), ((11 / 2) * 50) + 63);
+		oMarcador->pintarVidas(g, bmpVida3, bmpVida2, bmpVida1, bmpVida0, oJugador2->getVidas(), (((11 / 2) + 4) * 50) + 63);
+		ganarMultiplayer(g, bmpganaJ1, bmpganaJ2);
 	}
 	void crear_enemigos_y_mejoras() {
 		oArrEnemigos->crearEnemigos();

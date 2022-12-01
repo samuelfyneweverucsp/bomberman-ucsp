@@ -19,6 +19,8 @@ enum Direcciones{Arriba,Abajo,Izquierda,Derecha,Ninguna};
 // Para más información acerca del ENUM, véase aquí: https://learn.microsoft.com/es-es/cpp/cpp/enumerations-cpp?view=msvc-170
 // o acá (más fácil con ejemplos, pero en inglés): https://www.programiz.com/cpp-programming/enumeration
 
+enum Existencia{vivo, muerto};
+
 class CJugador {
 public:
     CJugador(){}
@@ -100,7 +102,14 @@ public:
             vidas--;
         }
     }
-
+    Existencia getEstado(CJugador* oJugador) {
+        if (oJugador->getVidas() <= 0) {
+            return Existencia::muerto;
+        }
+        else {
+            return Existencia::vivo;
+        }
+    }
     void dibujarJugador(Graphics^g, Bitmap^bmpJugador,int **matriz) {
         CDI = Rectangle(x + 2 * 3 + dx, y + 15 * 3, (ancho - 4) * 3, (alto - 15) * 3);  
             // multiplicando por tres porque el jugador es más pequeño que los bloques
@@ -118,7 +127,6 @@ public:
         x += dx; // mover en el eje x
         y += dy; // mover en el eje y
     }
-
     void moverJugador(Graphics^g, Bitmap^bmpJugador, int **matriz) {
         direccion == Arriba ? ancho = 17 : ancho = 18;
         dibujarJugador(g, bmpJugador,matriz);           
