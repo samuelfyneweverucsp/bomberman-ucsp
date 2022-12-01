@@ -22,10 +22,12 @@ enum Direcciones{Arriba,Abajo,Izquierda,Derecha,Ninguna};
 class CJugador {
 public:
     CJugador(){}
-    CJugador(int x, int y) {
+    CJugador(int posx, int posy) {
+        initial_posx = posx;
+        initial_posy = posy;
         // Inicializar la posición del jugador
-        this -> x = x;
-        this -> y = y;
+        x = posx;
+        y = posy;
         // Inicializar su movimiento en CERO (no está moviéndose al momento de crearse)
         dx = 0;
         dy = 0;
@@ -40,7 +42,7 @@ public:
         this->CAA=CAA;
         this->CDI=CDI;
 
-        vidas = 5;
+        vidas = 3;
         aceleracion = 0;
     }
     ~CJugador() {}
@@ -80,21 +82,21 @@ public:
     }
 
     void disminuirvidas() {
-        x = 50;
-        y = 50;
+        x = initial_posx;
+        y = initial_posy;
         vidas--;
     }
 
     void disminuirvidas(int PuntaIzquierda, int PuntaDerecha, int CentroInicioY, int CentroFinalY, 
                         int PuntaSuperior, int PuntaInferior, int CentroInicioX, int CentroFinalX) {
         if(getX() >= PuntaIzquierda && getX() <= PuntaDerecha && getY() >= CentroInicioY && getY() <= CentroFinalY) {
-            x = 50;
-            y = 50;
+            x = initial_posx;
+            y = initial_posy;
             vidas--;
         }
         if(getY() >= PuntaSuperior && getY() <= PuntaInferior && getX() >= CentroInicioX && getX() <= CentroFinalX) {
-            x = 50;
-            y = 50;
+            x = initial_posx;
+            y = initial_posy;
             vidas--;
         }
     }
@@ -192,6 +194,9 @@ public:
     }
 
 private:
+    int initial_posx;//guaradrá la posición de inicio
+    int initial_posy;
+
     int x; // posición
     int y; // posición
     int dx; // movimiento (velocidad)

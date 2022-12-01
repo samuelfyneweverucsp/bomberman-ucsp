@@ -55,7 +55,7 @@ namespace Bomberman {
 private: System::Windows::Forms::Label^ lblNivel;
 private: System::Windows::Forms::ProgressBar^ pbCarga;
 private: System::Windows::Forms::Timer^ trCarga;
-	private: System::Windows::Forms::Timer^ timer1;
+private: System::Windows::Forms::Timer^ timer1;
 	// protected:
 	// private: 
 		System::ComponentModel::IContainer^ components;
@@ -137,10 +137,10 @@ private: System::Windows::Forms::Timer^ trCarga;
 		Graphics^ g = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio->Allocate(g, this->ClientRectangle);
-		oControlador->dibujar(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras, bmpEnemigo);
+		oControlador->dibujarOnePlayer(buffer->Graphics, bmpSuelo, bmpSolido, bmpBomba, bmpExplosion, bmpDestruible, bmpJugador, bmpMejoras, bmpEnemigo);
 		buffer->Render(g);
 		delete buffer, espacio, g;
-		this->Text = "" + oControlador->getoJugador()->getVidas();
+		this->Text = "" + oControlador->getoJugador1()->getVidas();
 	}
 
 	private: System::Void Juego_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -148,17 +148,17 @@ private: System::Windows::Forms::Timer^ trCarga;
 	}
 	private: System::Void MantenerTecla(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		switch (e->KeyCode) {
-			case Keys::Up:
-				oControlador->getoJugador()->setDireccion(Direcciones::Arriba);
+			case Keys::W:
+				oControlador->getoJugador1()->setDireccion(Direcciones::Arriba);
 				break;
-			case Keys::Down:
-				oControlador->getoJugador()->setDireccion(Direcciones::Abajo);
+			case Keys::S:
+				oControlador->getoJugador1()->setDireccion(Direcciones::Abajo);
 				break;
-			case Keys::Left:
-				oControlador->getoJugador()->setDireccion(Direcciones::Izquierda);
+			case Keys::A:
+				oControlador->getoJugador1()->setDireccion(Direcciones::Izquierda);
 				break;
-			case Keys::Right:
-				oControlador->getoJugador()->setDireccion(Direcciones::Derecha);
+			case Keys::D:
+				oControlador->getoJugador1()->setDireccion(Direcciones::Derecha);
 				break;
 			default:
 				break;
@@ -169,10 +169,10 @@ private: System::Windows::Forms::Timer^ trCarga;
 		System::Void UltimaTeclaPresionada(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 			switch (e->KeyCode) {
 			case Keys::Space:
-				oControlador->agregarBomba();
+				oControlador->agregarBomba(oControlador->getoArrBombas1(), oControlador->getoJugador1());
 				break;
 			default:
-				oControlador->getoJugador()->setDireccion(Direcciones::Ninguna);
+				oControlador->getoJugador1()->setDireccion(Direcciones::Ninguna);
 				break;
 			}
 		}

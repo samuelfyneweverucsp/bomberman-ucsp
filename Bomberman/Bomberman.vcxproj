@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Juego.cpp" />
+    <ClCompile Include="JuegoMulti.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -129,13 +130,20 @@
     <ClInclude Include="Juego.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="MenuPrincipal.h" />
+    <ClInclude Include="JuegoMulti.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MenuPrincipal.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Juego.resx">
       <DependentUpon>Juego.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuPrincipal.resx" />
+    <EmbeddedResource Include="MenuPrincipal.resx">
+      <DependentUpon>MenuPrincipal.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

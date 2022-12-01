@@ -23,7 +23,23 @@ class CArrEnemigos {
         }
 
         vector<CEnemigo*> getArregloEnemigos() { return arregloEnemigos; }
-    
+
+        void eliminarEnemigo(int PuntaIzquierda, int PuntaDerecha, int CentroInicioY, int CentroFinalY,
+            int PuntaSuperior, int PuntaInferior, int CentroInicioX, int CentroFinalX) {
+            for (int i = 0; i < arregloEnemigos.size(); i++) {
+                if (arregloEnemigos.at(i)->getX() >= PuntaIzquierda && arregloEnemigos.at(i)->getX() <= PuntaDerecha
+                   && arregloEnemigos.at(i)->getY() >= CentroInicioY && arregloEnemigos.at(i)->getY() <= CentroFinalY) 
+                {
+                    arregloEnemigos.erase(arregloEnemigos.begin() + i);
+                }
+                if (arregloEnemigos.at(i)->getY() >= PuntaSuperior && arregloEnemigos.at(i)->getY() <= PuntaInferior 
+                    && arregloEnemigos.at(i)->getX() >= CentroInicioX && arregloEnemigos.at(i)->getX() <= CentroFinalX) 
+                {
+                    arregloEnemigos.erase(arregloEnemigos.begin() + i);
+                }
+            }
+        }
+
     private:
         vector<CEnemigo*> arregloEnemigos;
 };

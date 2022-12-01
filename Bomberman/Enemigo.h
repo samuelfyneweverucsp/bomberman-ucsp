@@ -56,7 +56,13 @@ public:
     Rectangle retornarRectangulo() {
         return Rectangle(x, y, 50, 50);
     }
-private:
+    int getX() {
+        return x;
+    }
+    int getY() {
+        return y;
+    }
+protected:
     int x; // posicion
     int y;
 

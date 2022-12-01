@@ -19,7 +19,10 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="MenuPrincipal.cpp">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="JuegoMulti.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,10 +38,8 @@
     <ClInclude Include="MenuPrincipal.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MenuPrincipal.resx">
+    <ClInclude Include="JuegoMulti.h">
       <Filter>Archivos de encabezado</Filter>
-    </EmbeddedResource>
+    </ClInclude>
   </ItemGroup>
 </Project>
