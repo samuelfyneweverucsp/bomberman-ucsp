@@ -7,3 +7,4 @@ C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.vcxproj
 C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.Juego.resources
 C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.vcxproj.GenerateResource.cache
 C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.MenuPrincipal.resources
+C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\x64\Debug\Bomberman.JuegoMulti.resources

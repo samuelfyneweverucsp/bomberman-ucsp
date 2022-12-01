@@ -1,13 +1,4 @@
-﻿  Juego.cpp
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Escenario.h(16,20): warning C4353: se ha utilizado una extensión no estándar: constante 0 como expresión de función. Utilice en su lugar la función intrínseca '__noop'
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Escenario.h(16,19): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Mejora.h(40,46): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Mejora.h(40,35): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Mejora.h(44,56): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Mejora.h(44,42): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\ArrMejoras.h(18,13): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Enemigo.h(12,19): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-  JuegoMulti.cpp
+﻿  JuegoMulti.cpp
 C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Escenario.h(16,20): warning C4353: se ha utilizado una extensión no estándar: constante 0 como expresión de función. Utilice en su lugar la función intrínseca '__noop'
 C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Escenario.h(16,19): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
 C:\Users\51955\source\repos\bomberman-ucsp\Bomberman\Mejora.h(40,46): warning C4244: 'argumento': conversión de 'double' a 'int'; posible pérdida de datos
